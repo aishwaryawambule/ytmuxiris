@@ -1,0 +1,1364 @@
+/* ===================================================================
+   YouTube Music TUI — Main Stylesheet
+   =================================================================== */
+
+/* ------------------------------------------------------------------
+   Variables (colour palette)
+   ------------------------------------------------------------------ */
+$bg-deep:        #0a0a0a;
+$bg-primary:     #111111;
+$bg-secondary:   #1a1a1a;
+$bg-elevated:    #222222;
+$bg-overlay:     #2a2a2a;
+
+$accent-red:     #ff0000;
+$accent-red-dark: #cc0000;
+$accent-orange:  #ff6b35;
+$accent-gold:    #ffa500;
+
+$text-primary:   #ffffff;
+$text-secondary: #e0e0e0;
+$text-muted:     #888888;
+$text-dim:       #555555;
+
+$border-bright:  #444444;
+$border-normal:  #333333;
+$border-dim:     #222222;
+
+$color-success:  #4caf50;
+$color-warning:  #ff9800;
+$color-error:    #f44336;
+$color-info:     #2196f3;
+
+
+/* ------------------------------------------------------------------
+   Root
+   ------------------------------------------------------------------ */
+YTMUXIRIS {
+    layout: vertical;
+    background: $bg-deep;
+}
+
+Screen {
+    background: $bg-deep;
+}
+
+/* ------------------------------------------------------------------
+   App body (sidebar + content)
+   ------------------------------------------------------------------ */
+#app-body {
+    layout: horizontal;
+    height: 1fr;
+}
+
+
+/* ------------------------------------------------------------------
+   Sidebar
+   ------------------------------------------------------------------ */
+Sidebar {
+    width: 22;
+    height: 100%;
+    background: $bg-secondary;
+    border-right: solid $border-normal;
+    layout: vertical;
+    overflow-y: auto;
+}
+
+.sidebar-logo {
+    height: 4;
+    content-align: center middle;
+    color: $accent-red;
+    text-style: bold;
+    border-bottom: solid $border-normal;
+    padding: 1;
+}
+
+.sidebar-section {
+    color: $text-dim;
+    text-style: bold;
+    padding: 1 2 0 2;
+    height: 2;
+}
+
+.sidebar-item {
+    height: 3;
+    padding: 0 2;
+    layout: horizontal;
+    align: left middle;
+    color: $text-muted;
+}
+
+.sidebar-item:hover {
+    background: $bg-elevated;
+    color: $text-primary;
+}
+
+.sidebar-item.active {
+    color: $accent-red;
+    background: $bg-primary;
+    border-left: thick $accent-red;
+    padding-left: 1;
+}
+
+.sidebar-marker {
+    width: 2;
+    color: $accent-red;
+    text-style: bold;
+    content-align: center middle;
+}
+
+.sidebar-icon {
+    width: 4;
+}
+
+.sidebar-label {
+}
+
+
+/* ------------------------------------------------------------------
+   Content area
+   ------------------------------------------------------------------ */
+#main-content {
+    width: 1fr;
+    height: 100%;
+    background: $bg-deep;
+    overflow-y: auto;
+}
+
+.screen-title {
+    text-style: bold;
+    color: $text-primary;
+    padding: 1 2;
+    border-bottom: solid $border-normal;
+    height: 3;
+    width: 100%;
+    background: $bg-secondary;
+    content-align: left middle;
+}
+
+.section-header {
+    text-style: bold;
+    color: $accent-orange;
+    padding: 1 2 0 2;
+    height: 2;
+    margin-top: 1;
+}
+
+.browse-list {
+    height: auto;
+    max-height: 16;
+    background: transparent;
+    border: none;
+    margin: 0 2 1 2;
+}
+
+.browse-list > ListItem {
+    background: transparent;
+    padding: 0 1;
+    height: 1;
+}
+
+.browse-list > ListItem:hover {
+    background: $bg-elevated;
+}
+
+.browse-list > ListItem.--highlight {
+    background: $accent-red 20%;
+}
+
+.text-muted {
+    color: $text-muted;
+    padding: 1 2;
+}
+
+
+/* ------------------------------------------------------------------
+   Player bar
+   ------------------------------------------------------------------ */
+PlayerBar {
+    dock: bottom;
+    height: 6;
+    background: $bg-secondary;
+    border-top: solid $accent-red;
+    layout: vertical;
+}
+
+#player-top-row {
+    layout: horizontal;
+    height: 1fr;
+    align: left middle;
+}
+
+#player-song-info {
+    width: 1fr;
+    padding: 0 2;
+    layout: vertical;
+    align: left middle;
+}
+
+.now-playing-title {
+    text-style: bold;
+    color: $text-primary;
+    width: 1fr;
+}
+
+.now-playing-artist {
+    color: $text-muted;
+    width: 1fr;
+}
+
+#player-controls {
+    width: auto;
+    padding: 0 2;
+    layout: horizontal;
+    align: center middle;
+}
+
+.ctrl-btn {
+    background: transparent;
+    border: none;
+    color: $text-secondary;
+    width: 5;
+    min-width: 3;
+}
+
+.ctrl-btn:hover {
+    color: $accent-red;
+}
+
+.ctrl-btn.primary-ctrl {
+    color: $text-primary;
+    text-style: bold;
+}
+
+#player-volume {
+    width: 18;
+    padding: 0 2;
+    layout: horizontal;
+    align: right middle;
+}
+
+.vol-icon {
+    width: 3;
+    color: $text-muted;
+}
+
+#vol-bar {
+    width: 1fr;
+}
+
+.vol-label {
+    width: 5;
+    color: $text-muted;
+    text-align: right;
+}
+
+#progress-row {
+    height: 1;
+    width: 100%;
+    layout: horizontal;
+    align: left middle;
+    padding: 0 2;
+}
+
+#progress-row .time-label {
+    width: 6;
+    color: $text-muted;
+    text-align: center;
+}
+
+PlaybackProgressBar {
+    height: 1;
+    width: 1fr;
+    padding: 0 1;
+}
+
+
+/* ------------------------------------------------------------------
+   Song list
+   ------------------------------------------------------------------ */
+SongList {
+    height: 1fr;
+    overflow-y: auto;
+}
+
+#home-sections SongList {
+    height: auto;
+    margin: 0 2;
+}
+
+SongRow {
+    height: 3;
+    layout: horizontal;
+    align: left middle;
+    padding: 0 1;
+    border-bottom: solid $border-dim;
+}
+
+SongRow > Horizontal {
+    height: 1fr;
+    align: left middle;
+}
+
+SongRow:hover {
+    background: $bg-elevated;
+}
+
+SongRow.playing {
+    background: $accent-red 20%;
+    border-left: thick $accent-red;
+}
+
+/* Hover MUST NOT hide the "currently playing" indicator. Layer the hover
+   on top of (not in place of) the playing red so both states stay visible. */
+SongRow.playing:hover {
+    background: $accent-red 30%;
+    border-left: thick $accent-red;
+    text-style: bold;
+}
+
+SongRow:focus {
+    background: $bg-elevated;
+}
+
+SongRow:focus-within {
+    background: $bg-elevated;
+}
+
+SongRow.playing:focus,
+SongRow.playing:focus-within {
+    background: $accent-red 30%;
+    border-left: thick $accent-red;
+}
+
+.track-num {
+    width: 4;
+    color: $text-dim;
+    text-align: right;
+    padding-right: 1;
+}
+
+.song-info {
+    width: 2fr;
+    layout: vertical;
+    align: left top;
+    height: 1fr;
+}
+
+.song-title {
+    text-style: bold;
+    color: $text-primary;
+    width: 1fr;
+    height: 1;
+}
+
+.song-artist {
+    color: $text-muted;
+    width: 1fr;
+    height: 1;
+}
+
+.song-album {
+    color: $text-dim;
+    width: 1fr;
+    padding: 0 1;
+}
+
+.song-duration {
+    width: 8;
+    color: $text-muted;
+    text-align: right;
+}
+
+.like-btn {
+    width: 5;
+    background: transparent;
+    border: none;
+    color: $text-dim;
+}
+
+.like-btn:hover {
+    color: $accent-red;
+}
+
+.like-btn.liked {
+    color: $accent-red;
+}
+
+.queue-btn {
+    width: 5;
+    background: transparent;
+    border: none;
+    color: $text-dim;
+}
+
+.queue-btn:hover {
+    color: $accent-orange;
+}
+
+.addpl-btn {
+    width: 5;
+    background: transparent;
+    border: none;
+    color: $text-dim;
+}
+
+.addpl-btn:hover {
+    color: $accent-gold;
+}
+
+.remove-btn {
+    width: 5;
+    background: transparent;
+    border: none;
+    color: $text-dim;
+}
+
+.remove-btn:hover {
+    color: $color-error;
+}
+
+
+/* ------------------------------------------------------------------
+   Add-to-playlist + confirm modals
+   ------------------------------------------------------------------ */
+AddToPlaylistScreen, ConfirmScreen {
+    align: center middle;
+}
+
+#add-to-pl-dialog {
+    width: 64;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+#add-to-pl-list {
+    height: 16;
+    margin: 1 0;
+    border: solid $border-bright;
+    background: $bg-elevated;
+}
+
+#add-to-pl-actions, #confirm-actions {
+    layout: horizontal;
+    height: 3;
+    margin-top: 1;
+}
+
+#confirm-dialog {
+    width: 56;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+
+/* ------------------------------------------------------------------
+   Search bar
+   ------------------------------------------------------------------ */
+SearchBar {
+    height: auto;
+    padding: 1 4;
+    background: $bg-secondary;
+    border-bottom: solid $border-normal;
+    layout: vertical;
+}
+
+SearchBar Input {
+    height: 3;
+    border: round $border-bright;
+    background: $bg-elevated;
+    color: $text-primary;
+    padding: 0 2;
+    width: 100%;
+    max-width: 80;
+}
+
+SearchBar Input:focus {
+    border: round $accent-red;
+    background: $bg-overlay;
+}
+
+#search-suggestions {
+    background: $bg-elevated;
+    border: round $border-bright;
+    max-height: 8;
+    width: 100%;
+    max-width: 80;
+    overflow-y: auto;
+    margin-top: 0;
+}
+
+#search-suggestions > .option-list--option-highlighted {
+    background: $accent-red 25%;
+    color: $text-primary;
+}
+
+.suggestion-item {
+    height: 2;
+    padding: 0 2;
+    color: $text-muted;
+}
+
+.suggestion-item:hover {
+    background: $bg-overlay;
+    color: $text-primary;
+}
+
+
+/* ------------------------------------------------------------------
+   Search screen layout
+   ------------------------------------------------------------------ */
+SearchView {
+    layout: vertical;
+}
+
+#filter-tabs {
+    height: 3;
+    background: $bg-primary;
+    border-bottom: solid $border-dim;
+    padding: 0 4;
+    align: left middle;
+}
+
+#search-results-area {
+    height: 1fr;
+    padding: 0;
+}
+
+#search-results-host {
+    height: 1fr;
+    width: 100%;
+    layout: vertical;
+}
+
+.search-artist-list {
+    padding: 1 4;
+    color: $text-secondary;
+    height: 1fr;
+    overflow-y: auto;
+}
+
+#search-placeholder {
+    width: 100%;
+    height: 1fr;
+    content-align: center middle;
+    text-align: center;
+    color: $text-muted;
+}
+
+
+/* ------------------------------------------------------------------
+   Search filter tabs
+   ------------------------------------------------------------------ */
+FilterTabs {
+    height: 3;
+    background: $bg-primary;
+    border-bottom: solid $border-dim;
+    layout: horizontal;
+    align: left middle;
+    padding: 0 1;
+}
+
+.filter-tab {
+    height: 3;
+    min-width: 12;
+    padding: 0 3;
+    margin: 0 1;
+    color: $text-muted;
+    background: transparent;
+    /* Reserve a transparent bottom border so switching to/from the active
+       state (which adds a coloured border-bottom) doesn't change the
+       button's height — that's what was making "Songs" jump up on hover. */
+    border-bottom: heavy transparent;
+    text-style: bold;
+    content-align: center middle;
+}
+
+.filter-tab.active {
+    color: $accent-red;
+    border-bottom: heavy $accent-red;
+    background: $bg-secondary;
+}
+
+.filter-tab:hover {
+    color: $text-primary;
+    background: $bg-elevated;
+    border-bottom: heavy transparent;
+}
+
+.filter-tab.active:hover {
+    color: $accent-red;
+    background: $bg-elevated;
+    border-bottom: heavy $accent-red;
+}
+
+
+/* ------------------------------------------------------------------
+   Album grid
+   ------------------------------------------------------------------ */
+AlbumGrid {
+    layout: grid;
+    grid-size: 4;
+    grid-rows: 12;
+    grid-gutter: 1 2;
+    padding: 1 2;
+    overflow-y: auto;
+    height: 1fr;
+}
+
+AlbumCard {
+    height: 12;
+    background: $bg-secondary;
+    border: solid $border-dim;
+    padding: 1;
+    layout: vertical;
+    align: center top;
+}
+
+AlbumCard:hover {
+    border: solid $accent-red;
+    background: $bg-elevated;
+}
+
+AlbumCard:focus {
+    border: solid $accent-red;
+}
+
+.album-art-placeholder {
+    height: 6;
+    width: 100%;
+    content-align: center middle;
+    background: $bg-elevated;
+    color: $accent-red;
+    text-style: bold;
+}
+
+.album-title {
+    text-style: bold;
+    color: $text-primary;
+    width: 100%;
+}
+
+.album-artist {
+    color: $text-muted;
+    width: 100%;
+}
+
+.album-year {
+    color: $text-dim;
+    width: 100%;
+}
+
+
+/* ------------------------------------------------------------------
+   Queue screen
+   ------------------------------------------------------------------ */
+QueueView {
+    layout: vertical;
+    width: 1fr;
+    height: 1fr;
+}
+
+#queue-header {
+    height: 3;
+    layout: horizontal;
+    align: left middle;
+    padding: 0 2;
+    background: $bg-secondary;
+    border-bottom: solid $border-normal;
+}
+
+#queue-header .screen-title {
+    width: 1fr;
+    border-bottom: none;
+}
+
+/* ------------------------------------------------------------------
+   Favorites view
+   ------------------------------------------------------------------ */
+#fav-header {
+    height: 3;
+    width: 100%;
+    align: left middle;
+    background: $bg-secondary;
+    border-bottom: solid $border-normal;
+}
+
+#fav-header .screen-title {
+    width: 1fr;
+    border-bottom: none;
+}
+
+#fav-body {
+    height: 1fr;
+    width: 100%;
+    padding: 1 2;
+}
+
+#fav-empty {
+    padding: 1 0;
+}
+
+#btn-clear-queue {
+    width: 9;
+    min-width: 9;
+}
+
+#queue-list {
+    height: 1fr;
+    overflow-y: auto;
+}
+
+.queue-item {
+    height: 1;
+    width: 100%;
+    padding: 0 2;
+    color: $text-primary;
+    background: transparent;
+}
+
+.queue-item.current {
+    background: $accent-red 20%;
+    color: $accent-red;
+    text-style: bold;
+}
+
+.queue-item:hover {
+    background: $bg-elevated;
+}
+
+/* Hover must not hide the "current" indicator on the now-playing row.
+   Strengthen the red instead of swapping it out. */
+.queue-item.current:hover {
+    background: $accent-red 35%;
+    color: $accent-red;
+    text-style: bold;
+}
+
+.queue-item-num {
+    width: 4;
+    color: $text-dim;
+}
+
+.queue-item-info {
+    width: 1fr;
+    layout: vertical;
+    align: left middle;
+}
+
+
+/* ------------------------------------------------------------------
+   Library screen
+   ------------------------------------------------------------------ */
+#library-tabs {
+    height: 3;
+    background: $bg-primary;
+    border-bottom: solid $border-dim;
+}
+
+#library-content {
+    height: 1fr;
+    overflow-y: auto;
+}
+
+
+/* ------------------------------------------------------------------
+   Playlist screen
+   ------------------------------------------------------------------ */
+#playlist-header {
+    height: 8;
+    layout: horizontal;
+    padding: 1 2;
+    background: $bg-secondary;
+    border-bottom: solid $border-normal;
+}
+
+.playlist-art {
+    width: 12;
+    height: 6;
+    content-align: center middle;
+    background: $bg-elevated;
+    color: $accent-red;
+    border: solid $border-normal;
+}
+
+#playlist-meta {
+    width: 1fr;
+    padding: 0 2;
+    layout: vertical;
+    align: left top;
+}
+
+.playlist-title {
+    text-style: bold;
+    color: $text-primary;
+    width: 100%;
+}
+
+.playlist-description {
+    color: $text-muted;
+    width: 100%;
+}
+
+.playlist-count {
+    color: $text-dim;
+    width: 100%;
+}
+
+#playlist-header Button {
+    height: 3;
+    min-width: 14;
+    margin: 1 0 0 1;
+    border: none;
+    padding: 0 2;
+}
+
+#btn-play-all {
+    background: $accent-red;
+    color: $text-primary;
+    text-style: bold;
+}
+
+#btn-play-all:hover {
+    background: $accent-red-dark;
+}
+
+#playlist-header Button.danger {
+    background: $bg-elevated;
+    color: $text-secondary;
+}
+
+#playlist-header Button.danger:hover {
+    background: $accent-red-dark;
+    color: $text-primary;
+}
+
+
+/* ------------------------------------------------------------------
+   Playlist grid (Library → Playlists tab)
+   ------------------------------------------------------------------ */
+#lib-playlists-actions {
+    height: 4;
+    padding: 0 2;
+    layout: horizontal;
+    align: left middle;
+    background: $bg-primary;
+    border-bottom: solid $border-dim;
+}
+
+#lib-playlists-actions .settings-btn {
+    margin: 0 1 0 0;
+    height: 3;
+    min-width: 14;
+}
+
+#lib-playlists-actions .settings-btn.primary {
+    background: $accent-red 25%;
+}
+
+PlaylistGrid {
+    layout: grid;
+    grid-size: 3;
+    grid-rows: 9;
+    grid-gutter: 1 2;
+    padding: 1 2;
+    overflow-y: auto;
+    height: 1fr;
+}
+
+PlaylistCard {
+    height: 9;
+    background: $bg-secondary;
+    border: solid $border-dim;
+    padding: 1;
+    layout: vertical;
+    align: center top;
+}
+
+PlaylistCard:hover {
+    border: solid $accent-red;
+    background: $bg-elevated;
+}
+
+.playlist-art-placeholder {
+    height: 2;
+    width: 100%;
+    content-align: center middle;
+    background: $bg-elevated;
+    color: $accent-red;
+    text-style: bold;
+}
+
+.playlist-card-title {
+    text-style: bold;
+    color: $text-primary;
+    width: 100%;
+}
+
+.playlist-card-desc {
+    color: $text-muted;
+    width: 100%;
+    height: 2;
+}
+
+.playlist-card-count {
+    color: $text-dim;
+    width: 100%;
+}
+
+YTMUXIRIS.compact PlaylistGrid {
+    grid-size: 1;
+}
+
+
+/* ------------------------------------------------------------------
+   Create playlist modal
+   ------------------------------------------------------------------ */
+CreatePlaylistScreen {
+    align: center middle;
+}
+
+#create-pl-dialog {
+    width: 64;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+.create-pl-label {
+    color: $text-secondary;
+    margin: 1 0 0 0;
+}
+
+#create-pl-title, #create-pl-desc {
+    margin: 0 0 1 0;
+    border: solid $border-bright;
+    background: $bg-elevated;
+    color: $text-primary;
+}
+
+#create-pl-title:focus, #create-pl-desc:focus {
+    border: heavy $accent-red;
+}
+
+#create-pl-actions {
+    layout: horizontal;
+    height: 3;
+    align: center middle;
+}
+
+#btn-create-pl {
+    background: $accent-red-dark;
+    color: $text-primary;
+    margin: 0 1;
+    width: 12;
+}
+
+#btn-create-pl:hover {
+    background: $accent-red;
+}
+
+#btn-cancel-pl {
+    background: $bg-elevated;
+    color: $text-primary;
+    margin: 0 1;
+    width: 12;
+}
+
+
+/* ------------------------------------------------------------------
+   Settings screen
+   ------------------------------------------------------------------ */
+SettingsView {
+    layout: vertical;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+.settings-group {
+    height: auto;
+    border: solid $border-normal;
+    padding: 1;
+    margin-bottom: 1;
+    background: $bg-secondary;
+}
+
+.settings-group-title {
+    text-style: bold;
+    color: $accent-orange;
+    margin-bottom: 1;
+}
+
+.settings-row {
+    layout: horizontal;
+    height: 5;
+    align: left middle;
+    padding: 0 1;
+}
+
+.settings-label {
+    width: 1fr;
+    color: $text-secondary;
+    height: 1fr;
+    content-align: left middle;
+}
+
+.settings-row Select {
+    width: 24;
+}
+
+.settings-row Switch {
+    width: auto;
+}
+
+.settings-control {
+    width: 20;
+    color: $text-primary;
+}
+
+.settings-btn {
+    width: auto;
+    min-width: 16;
+    height: 3;
+    padding: 0 2;
+    margin: 1 0 0 0;
+    border: tall $border-bright;
+    background: $bg-elevated;
+    color: $text-primary;
+}
+
+.settings-btn:hover {
+    border: tall $accent-orange;
+    color: $accent-orange;
+}
+
+.settings-btn.primary {
+    background: $accent-red 30%;
+    border: tall $accent-red;
+    text-style: bold;
+}
+
+.settings-btn.primary:hover {
+    background: $accent-red 50%;
+}
+
+.settings-btn.danger {
+    color: $accent-red;
+}
+
+
+/* ------------------------------------------------------------------
+   Login screen
+   ------------------------------------------------------------------ */
+LoginScreen {
+    align: center middle;
+    background: $bg-deep;
+}
+
+#login-card {
+    width: 60;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+.login-title {
+    text-style: bold;
+    color: $accent-red;
+    content-align: center middle;
+    height: 3;
+}
+
+.login-instructions {
+    color: $text-muted;
+    margin: 1 0;
+}
+
+.login-btn {
+    width: 100%;
+    background: $accent-red-dark;
+    color: $text-primary;
+    margin-top: 1;
+}
+
+.login-btn:hover {
+    background: $accent-red;
+}
+
+.login-status {
+    height: auto;
+    min-height: 1;
+    color: $text-muted;
+    margin-top: 1;
+    text-align: center;
+}
+
+
+/* ------------------------------------------------------------------
+   Notifications (toast)
+   ------------------------------------------------------------------ */
+Toast {
+    background: $bg-overlay;
+    border: solid $border-bright;
+    color: $text-primary;
+}
+
+Toast.-success {
+    border: solid $color-success;
+}
+
+Toast.-warning {
+    border: solid $color-warning;
+}
+
+Toast.-error {
+    border: solid $color-error;
+}
+
+
+/* ------------------------------------------------------------------
+   Loading spinner
+   ------------------------------------------------------------------ */
+LoadingSpinner {
+    height: 3;
+    content-align: center middle;
+    color: $accent-red;
+}
+
+
+/* ------------------------------------------------------------------
+   Help screen
+   ------------------------------------------------------------------ */
+HelpScreen {
+    align: center middle;
+}
+
+#help-dialog {
+    width: 70;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 1 2;
+    layout: vertical;
+}
+
+.help-title {
+    text-style: bold;
+    color: $accent-red;
+    height: 3;
+    content-align: center middle;
+    border-bottom: solid $border-normal;
+}
+
+.help-section {
+    color: $accent-orange;
+    text-style: bold;
+    margin-top: 1;
+}
+
+.help-row {
+    layout: horizontal;
+    height: 2;
+}
+
+.help-key {
+    width: 20;
+    color: $text-primary;
+    text-style: bold;
+}
+
+.help-desc {
+    width: 1fr;
+    color: $text-muted;
+}
+
+#help-close {
+    width: 20;
+    margin-top: 1;
+    align-horizontal: center;
+}
+
+
+/* ------------------------------------------------------------------
+   Modal dialogs
+   ------------------------------------------------------------------ */
+ConfirmDialog {
+    align: center middle;
+}
+
+#dialog {
+    width: 50;
+    height: auto;
+    background: $bg-secondary;
+    border: thick $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+#dialog-message {
+    height: 3;
+    content-align: center middle;
+    color: $text-primary;
+}
+
+#dialog-buttons {
+    layout: horizontal;
+    height: 3;
+    align: center middle;
+}
+
+#dialog-yes {
+    background: $color-error;
+    color: $text-primary;
+    margin: 0 1;
+}
+
+#dialog-no {
+    background: $bg-elevated;
+    color: $text-primary;
+    margin: 0 1;
+}
+
+
+/* ------------------------------------------------------------------
+   Responsive / compact mode
+   ------------------------------------------------------------------ */
+YTMUXIRIS.compact Sidebar {
+    display: none;
+}
+
+YTMUXIRIS.compact .song-album {
+    display: none;
+}
+
+YTMUXIRIS.compact AlbumGrid {
+    grid-size: 2;
+}
+
+YTMUXIRIS.compact PlayerBar {
+    height: 4;
+}
+
+
+/* ------------------------------------------------------------------
+   Accessibility — focus indicators
+   ------------------------------------------------------------------ */
+/* No universal focus border — it made every first click look like a no-op
+   (focus shown, action seemingly skipped). Widgets that need a focus cue
+   define their own (e.g. SearchBar Input, settings-btn). */
+
+Button:focus {
+    text-style: bold;
+    background: $accent-red-dark;
+}
+
+
+/* ------------------------------------------------------------------
+   Visualizer
+   ------------------------------------------------------------------ */
+SimpleVisualizer {
+    height: 2;
+    color: $accent-red;
+    content-align: left middle;
+    padding: 0 2;
+}
+
+
+/* ------------------------------------------------------------------
+   Scrollbar theming
+   ------------------------------------------------------------------ */
+* {
+    scrollbar-background: $bg-secondary;
+    scrollbar-color: $accent-red-dark;
+    scrollbar-color-hover: $accent-red;
+    scrollbar-size: 1 1;
+}
+
+
+/* ------------------------------------------------------------------
+   Animations
+   ------------------------------------------------------------------ */
+.playing-indicator {
+    color: $accent-red;
+}
+
+
+/* ------------------------------------------------------------------
+   AI Autoplay modal
+   ------------------------------------------------------------------ */
+AutoplayScreen {
+    align: center middle;
+}
+
+#autoplay-dialog {
+    width: 72;
+    height: auto;
+    background: $bg-secondary;
+    border: solid $accent-red;
+    padding: 2;
+    layout: vertical;
+}
+
+.autoplay-title {
+    text-style: bold;
+    color: $accent-red;
+    content-align: center middle;
+    height: 3;
+    border-bottom: solid $border-normal;
+}
+
+.autoplay-hint {
+    color: $text-muted;
+    margin: 1 0 0 0;
+}
+
+#autoplay-input {
+    margin: 1 0;
+    border: solid $border-bright;
+    background: $bg-elevated;
+    color: $text-primary;
+}
+
+#autoplay-input:focus {
+    border: heavy $accent-red;
+}
+
+.autoplay-status {
+    color: $accent-orange;
+    height: 2;
+    margin-bottom: 1;
+}
+
+#autoplay-actions {
+    layout: horizontal;
+    height: 3;
+    align: center middle;
+}
+
+#btn-autoplay {
+    background: $accent-red-dark;
+    color: $text-primary;
+    margin: 0 1;
+    width: 12;
+}
+
+#btn-autoplay:hover {
+    background: $accent-red;
+}
+
+#btn-cancel {
+    background: $bg-elevated;
+    color: $text-primary;
+    margin: 0 1;
+    width: 12;
+}

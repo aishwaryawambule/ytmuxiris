@@ -1,0 +1,13 @@
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.v
+dist
+__pycache__/
+.coverage
+.env
+.DS_Store
+*.md
+*/*.md
+!README.md
+!**/README.md

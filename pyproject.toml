@@ -1,0 +1,92 @@
+[tool.poetry]
+name = "ytmuxiris"
+version = "0.1.0"
+description = "A terminal UI for YouTube Music built with Textual"
+authors = ["ytmuxiris"]
+readme = "README.md"
+license = "MIT"
+keywords = ["youtube-music", "tui", "textual", "music-player", "terminal"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console :: Curses",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Players",
+]
+packages = [{include = "ytmuxiris", from = "src"}]
+include = ["src/ytmuxiris/ui/styles/*.tcss"]
+
+[tool.poetry.scripts]
+ytmuxiris = "ytmuxiris.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+textual = "^0.80.0"
+ytmusicapi = "^1.7.0"
+python-mpv = "^1.0.7"
+yt-dlp = "^2024.1.0"
+pyyaml = "^6.0"
+rich = "^13.7.0"
+httpx = "^0.27.0"
+anthropic = "^0.40.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+freezegun = "^1.4.0"
+responses = "^0.25.0"
+ruff = "^0.4.0"
+mypy = "^1.10.0"
+pre-commit = "^3.7.0"
+types-PyYAML = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--cov=src/ytmuxiris --cov-report=term-missing"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "A", "S"]
+ignore = [
+    "S101",  # asserts are fine in tests
+    "S110",  # defensive try/except/pass in UI/teardown code is intentional
+    "S324",  # md5 is used for cache keys, not security
+    "A002",  # `filter` mirrors ytmusicapi's public kwarg name
+]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+check_untyped_defs = true
+disallow_untyped_defs = false
+disable_error_code = [
+    # mpv exposes untyped decorators; many Textual hooks are dynamic too.
+    "untyped-decorator",
+    # Textual's App is generic; downstream attribute typing isn't worth the noise.
+    "attr-defined",
+    # ytmusicapi returns plain dicts/lists — Any leaks out and is fine.
+    "no-any-return",
+    # Pre-existing missing generic args on Screen/ModalScreen/list/dict.
+    "type-arg",
+    # Pre-existing branches that reassign a widget container to a sibling type.
+    "assignment",
+    "union-attr",
+    "name-defined",
+    "override",
+]
