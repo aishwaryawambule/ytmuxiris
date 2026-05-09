@@ -263,8 +263,14 @@ class YTMUXIRIS(App):  # type: ignore[type-arg]
 
     def on_worker_state_changed(self, event: object) -> None:
         if hasattr(event, "state") and event.state == WorkerState.ERROR:  # type: ignore[attr-defined]
-            if hasattr(event, "worker") and hasattr(event.worker, "error"):
-                logger.error("Worker error: %s", event.worker.error)
+            worker = getattr(event, "worker", None)
+            err = getattr(worker, "error", None)
+            name = getattr(worker, "name", "?")
+            if err is not None:
+                import traceback
+
+                tb = "".join(traceback.format_exception(type(err), err, err.__traceback__))
+                logger.error("Worker '%s' failed:\n%s", name, tb)
 
     # ------------------------------------------------------------------
     # Actions — playback

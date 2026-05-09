@@ -57,8 +57,10 @@ class HomeView(Widget):
 
         rendered_any = False
         for shelf in shelves:
+            if not isinstance(shelf, dict):
+                continue
             title = shelf.get("title") or "Untitled"
-            contents = shelf.get("contents") or []
+            contents = [c for c in (shelf.get("contents") or []) if isinstance(c, dict)]
             if not contents:
                 continue
 
@@ -101,8 +103,10 @@ class _BrowseList(ListView):
 
     def on_mount(self) -> None:
         for item in self._items:
+            if not isinstance(item, dict):
+                continue
             title = item.get("title") or "Untitled"
-            artists = item.get("artists") or []
+            artists = [a for a in (item.get("artists") or []) if isinstance(a, dict)]
             subtitle = (
                 ", ".join(a.get("name", "") for a in artists)
                 if artists

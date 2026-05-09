@@ -492,12 +492,21 @@ class YouTubeMusicAPI:
     # Parsing helpers
     # ------------------------------------------------------------------
 
-    def _parse_song(self, data: dict[str, Any]) -> Song:
+    def _parse_song(self, data: dict[str, Any] | None) -> Song:
         # ytmusicapi returns duration in different fields depending on the
         # endpoint: "duration" ("3:45") for search/library, "duration_seconds"
         # (225) for watch-playlist/queue, "lengthSeconds" ("225") for some
         # raw player payloads. Fall through them so the UI never shows 0:00
         # for a song that actually has a known length.
+        if not isinstance(data, dict):
+            return Song(
+                video_id="",
+                title="Unknown",
+                artist="Unknown Artist",
+                album=None,
+                duration=0,
+                thumbnail=None,
+            )
         dur = data.get("duration_seconds") or data.get("lengthSeconds") or data.get("duration") or 0
         return Song(
             video_id=data.get("videoId") or "",
@@ -509,7 +518,7 @@ class YouTubeMusicAPI:
         )
 
     def _parse_album(self, data: dict[str, Any]) -> Album:
-        artists = data.get("artists") or []
+        artists = [a for a in (data.get("artists") or []) if isinstance(a, dict)]
         artist_name = ", ".join(a.get("name", "") for a in artists) if artists else "Unknown"
         return Album(
             browse_id=data.get("browseId") or "",
@@ -558,7 +567,7 @@ class YouTubeMusicAPI:
         return artist
 
     def _extract_artists(self, data: dict[str, Any]) -> str:
-        artists = data.get("artists") or []
+        artists = [a for a in (data.get("artists") or []) if isinstance(a, dict)]
         if artists:
             return ", ".join(a.get("name", "") for a in artists)
         return data.get("author") or "Unknown Artist"
