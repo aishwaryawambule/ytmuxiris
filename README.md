@@ -6,6 +6,7 @@ A terminal UI for YouTube Music built with [Textual](https://textual.textualize.
 
 - Python 3.11+
 - [mpv](https://mpv.io/) (`brew install mpv` on macOS, `apt install mpv` on Debian/Ubuntu)
+- [yt-dlp] (`brew install yt-dlp` on macOS, `apt install yt-dlp` on Debian/Ubuntu)
 - A logged-in browser session at [music.youtube.com](https://music.youtube.com) (Chrome, Firefox, Brave, or Edge)
 
 ## Install
