@@ -77,8 +77,44 @@ The session is saved to `~/.config/ytmuxiris/auth.json` (permissions 600). **Sig
 | `,` / `.` | Seek -10s / +10s |
 | `1`–`4` | Home / Search / Library / Queue |
 | `/` | Focus search |
+| `a` | AI Autoplay |
 | `?` | Help |
 | `q` | Quit |
+
+## AI Autoplay
+
+Press `a` (or pick "AI Autoplay" in the sidebar), type something like *"lo-fi for late-night coding"* or *"upbeat 90s alt-rock, no repeats"*, and ytmuxiris builds a queue that matches and saves it back to your account as `Autoplay: <prompt>`.
+
+### Why it exists
+
+YouTube Music's own radio is anchored to a single seed song or artist. That works when you already know what you want to hear, but it falls apart for *vibe-shaped* requests — energy level, time of day, genre blends, "more like what's playing but darker", and so on. The autoplay engine fills that gap by treating a free-form prompt as the seed instead.
+
+### How it works
+
+The pipeline lives in `src/ytmuxiris/ai/` and runs entirely client-side:
+
+1. **Intent parsing** (`intent_parser.py`) — turns the prompt into a structured `AutoplayIntent` (mood, energy, genres, seed artists, search query, mode).
+2. **Candidate retrieval** — runs the seed query through the YouTube Music search and watch-playlist endpoints to gather a candidate pool.
+3. **Embedding & similarity** (`embeddings.py`) — embeds the prompt and each candidate's title/artist/album metadata, then ranks by cosine similarity. Embeddings are cached on disk so re-prompts are cheap.
+4. **Re-ranking** (`reranker.py`) — boosts/penalises candidates against the parsed intent (matching mood, requested energy, seed artists; demoting near-duplicates and items that violate `no_repeats`).
+5. **Queueing** — top tracks are pushed to the queue and persisted as a YouTube Music playlist so the result survives across sessions.
+
+### Model choices
+
+ytmuxiris is **local-first** for privacy and cost: by default it talks to a local [Ollama](https://ollama.ai/) instance for both the intent LLM and the embedding model. If Ollama isn't reachable, a keyword rule engine handles intent parsing so the feature degrades gracefully rather than failing.
+
+A frontier model (Anthropic Claude) is opt-in for users who want sharper intent parsing on ambiguous prompts. Toggle it in Settings (`use_frontier_model`) and provide a `claude_api_key` — `claude-haiku-4-5` is the default since it's fast and cheap for this short structured-JSON task.
+
+Configure under `~/.config/ytmuxiris/config.yaml`:
+
+```yaml
+ollama_url: http://localhost:11434
+ollama_model: gpt-oss:20b           # for intent parsing
+embed_model: nomic-embed-text       # for similarity
+use_frontier_model: false
+claude_api_key: ""
+claude_model: claude-haiku-4-5-20251001
+```
 
 ## Development
 
@@ -110,6 +146,7 @@ src/ytmuxiris/
 ├── app.py              — Root App, bindings, screen stack, reactives
 ├── main.py             — Entry point (exposed as the `ytmuxiris` console script)
 ├── api/                — ytmusicapi wrapper (typed, cached, async)
+├── ai/                 — Autoplay engine: intent parser, embeddings, reranker
 ├── player/             — MPV audio player + queue manager
 ├── models/             — Song, Album, Artist, Playlist dataclasses
 ├── ui/
