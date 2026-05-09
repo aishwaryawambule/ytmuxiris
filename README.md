@@ -18,12 +18,12 @@ brew install pipx                                   # macOS
 # or: python3 -m pip install --user pipx && python3 -m pipx ensurepath
 
 # Install ytmuxiris from a local clone
-git clone https://github.com/<your-user>/ytmuxiris.git
+git clone https://github.com/aishwaryawambule/ytmuxiris.git
 cd ytmuxiris
 pipx install .
 
 # Or install directly from GitHub
-pipx install git+https://github.com/<your-user>/ytmuxiris.git
+pipx install git+https://github.com/aishwaryawambule/ytmuxiris.git
 ```
 
 Once installed, run it from anywhere:
